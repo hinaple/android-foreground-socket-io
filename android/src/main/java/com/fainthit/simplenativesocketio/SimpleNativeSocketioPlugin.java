@@ -180,7 +180,7 @@ public class SimpleNativeSocketioPlugin extends Plugin {
     // 기본 이벤트 등록 헬퍼 (메시지 전달형)
     private void registerSocketEvent(String socketEvent, String message) {
         mSocket.on(socketEvent, args -> {
-            if(socketEvent == Socket.EVENT_CONNECT) {
+            if(socketEvent == Socket.EVENT_CONNECT && onConnectData != null && !onConnectData.isEmpty()) {
                 mSocket.emit(onConnectEvent, onConnectData);
             }
             JSObject ret = new JSObject();
