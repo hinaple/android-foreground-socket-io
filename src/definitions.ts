@@ -38,6 +38,8 @@ export interface SimpleNativeSocketioPlugin {
 
   setOnConnectEmit(options: { onConnectEvent: string; onConnectData: string }): Promise<void>;
 
+  isConnected(): Promise<{ connected: boolean }>;
+
   addListener(
     eventName: string,
     listenerFunc: (data: object) => void,

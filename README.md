@@ -20,6 +20,7 @@ npx cap sync
 * [`setWebviewActive(...)`](#setwebviewactive)
 * [`setWebviewInactive(...)`](#setwebviewinactive)
 * [`setOnConnectEmit(...)`](#setonconnectemit)
+* [`isConnected()`](#isconnected)
 * [`addListener(string, ...)`](#addlistenerstring-)
 * [Interfaces](#interfaces)
 
@@ -129,6 +130,17 @@ setOnConnectEmit(options: { onConnectEvent: string; onConnectData: string; }) =>
 | Param         | Type                                                            |
 | ------------- | --------------------------------------------------------------- |
 | **`options`** | <code>{ onConnectEvent: string; onConnectData: string; }</code> |
+
+--------------------
+
+
+### isConnected()
+
+```typescript
+isConnected() => Promise<{ connected: boolean; }>
+```
+
+**Returns:** <code>Promise&lt;{ connected: boolean; }&gt;</code>
 
 --------------------
 

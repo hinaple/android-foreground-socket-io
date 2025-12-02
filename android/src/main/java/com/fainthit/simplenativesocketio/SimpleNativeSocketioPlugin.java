@@ -70,6 +70,7 @@ public class SimpleNativeSocketioPlugin extends Plugin {
         }
 
         if (mSocket != null) {
+            // return;
             if (mSocket.connected()) {
                 Log.d(TAG, "Disconnecting existing socket.");
                 mSocket.disconnect();
@@ -157,6 +158,14 @@ public class SimpleNativeSocketioPlugin extends Plugin {
             sendOrCacheEvent(eventName, ret);
         });
         call.resolve();
+    }
+
+    @PluginMethod
+    public void isConnected(PluginCall call) {
+        JSObject ret = new JSObject();
+        boolean connected = (mSocket != null && mSocket.connected());
+        ret.put("connected", connected);
+        call.resolve(ret);
     }
 
     // --------------------------------------------------
