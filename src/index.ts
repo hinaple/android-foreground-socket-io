@@ -1,10 +1,8 @@
 import { registerPlugin } from '@capacitor/core';
 
-import type { SimpleNativeSocketioPlugin } from './definitions';
+import type { AndroidForegroundSocketPlugin } from './definitions';
 
-const SimpleNativeSocketio = registerPlugin<SimpleNativeSocketioPlugin>('SimpleNativeSocketio', {
-  //   web: () => import('./web').then((m) => new m.SimpleNativeSocketioWeb()),
-});
+const AndroidForegroundSocket = registerPlugin<AndroidForegroundSocketPlugin>('AndroidForegroundSocket');
 
 export * from './definitions';
-export { SimpleNativeSocketio };
+export { AndroidForegroundSocket };

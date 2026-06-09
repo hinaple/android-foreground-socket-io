@@ -1,47 +1,103 @@
 import type { PluginListenerHandle } from '@capacitor/core';
 
-export interface SimpleNativeSocketioPlugin {
-  /**
-   * Starts the socket connection.
-   * @param options { url: string }
-   */
-  startSocketConnection(options: { url: string }): Promise<void>;
+export interface AndroidForegroundSocketStartOptions {
+  socket: AndroidForegroundSocketOptions;
+  listen?: AndroidForegroundSocketListenOptions;
+  service?: AndroidForegroundSocketServiceOptions;
+  onConnectEmit?: AndroidForegroundSocketEmitOptions;
+  actions?: AndroidForegroundSocketAction[];
+}
 
-  /**
-   * Dynamically registers a listener for the specified event.
-   * @param options { event: string }
-   */
-  addSocketListener(options: { event: string }): Promise<void>;
+export interface AndroidForegroundSocketOptions {
+  url: string;
+  path?: string;
+  transports?: string[];
+  reconnect?: boolean;
+  reconnectionAttempts?: number;
+  reconnectionDelay?: number;
+  reconnectionDelayMax?: number;
+  timeout?: number;
+  forceNew?: boolean;
+  query?: string;
+}
 
-  /**
-   * Emits an event with the provided data.
-   * @param options { event: string, data: any }
-   */
-  emit(options: { event: string; data: any }): Promise<void>;
+export interface AndroidForegroundSocketListenOptions {
+  events?: string[];
+  bufferSize?: number;
+}
 
-  /**
-   * Initializes event reception (keepAlive).
-   */
-  onSocketEvent(options?: {}): Promise<void>;
+export interface AndroidForegroundSocketServiceOptions {
+  notificationTitle?: string;
+  notificationText?: string;
+  startOnBoot?: boolean;
+}
 
-  /**
-   * Notifies the native side that the webview (JS context) is now active.
-   * Typically called when the app resumes.
-   */
-  setWebviewActive(options?: {}): Promise<void>;
+export interface AndroidForegroundSocketEmitOptions {
+  event: string;
+  data?: any;
+}
 
-  /**
-   * Notifies the native side that the webview (JS context) is now inactive.
-   * Typically called when the app is backgrounded.
-   */
-  setWebviewInactive(options?: {}): Promise<void>;
+export interface AndroidForegroundSocketAction {
+  id: string;
+  event: string;
+  enabled?: boolean;
+  match?: AndroidForegroundSocketMatch;
+  cooldownMs?: number;
+  run: AndroidForegroundSocketNativeAction[];
+}
 
-  setOnConnectEmit(options: { onConnectEvent: string; onConnectData: string }): Promise<void>;
+export type AndroidForegroundSocketMatch =
+  | { path: string; equals: any }
+  | { path: string; contains: any }
+  | { path: string; exists: boolean }
+  | { path: string; gt: number }
+  | { path: string; gte: number }
+  | { path: string; lt: number }
+  | { path: string; lte: number }
+  | { all: AndroidForegroundSocketMatch[] }
+  | { any: AndroidForegroundSocketMatch[] };
 
-  isConnected(): Promise<{ connected: boolean }>;
+export type AndroidForegroundSocketNativeAction =
+  | { type: 'wakeScreen'; durationMs?: number }
+  | { type: 'vibrate'; durationMs: number }
+  | { type: 'vibrate'; pattern: number[]; repeat?: number }
+  | { type: 'playSound'; source: string; volume?: number; loop?: boolean; channel?: string }
+  | { type: 'stopSound'; channel?: string }
+  | { type: 'setVolume'; level: number }
+  | { type: 'delay'; durationMs: number }
+  | { type: 'emit'; event: string; data?: any }
+  | { type: 'notifyWebview'; event?: string; data?: any };
 
+export interface AndroidForegroundSocketStatus {
+  serviceRunning: boolean;
+  connected: boolean;
+  url?: string;
+  registeredActions: number;
+  watchedEvents: string[];
+  webviewActive: boolean;
+  queuedEvents: number;
+}
+
+export interface AndroidForegroundSocketPlugin {
+  start(options: AndroidForegroundSocketStartOptions): Promise<void>;
+  stop(): Promise<void>;
+  restart(options?: AndroidForegroundSocketStartOptions): Promise<void>;
+  connect(): Promise<void>;
+  disconnect(): Promise<void>;
+  watchEvent(options: { event: string }): Promise<void>;
+  unwatchEvent(options: { event: string }): Promise<void>;
+  emit(options: AndroidForegroundSocketEmitOptions): Promise<void>;
+  registerAction(action: AndroidForegroundSocketAction): Promise<void>;
+  unregisterAction(options: { id: string }): Promise<void>;
+  clearActions(): Promise<void>;
+  listActions(): Promise<{ actions: AndroidForegroundSocketAction[] }>;
+  setActionEnabled(options: { id: string; enabled: boolean }): Promise<void>;
+  setWebviewActive(): Promise<void>;
+  setWebviewInactive(): Promise<void>;
+  setOnConnectEmit(options: AndroidForegroundSocketEmitOptions): Promise<void>;
+  getStatus(): Promise<AndroidForegroundSocketStatus>;
   addListener(
     eventName: string,
-    listenerFunc: (data: object) => void,
+    listenerFunc: (data: any) => void,
   ): Promise<PluginListenerHandle> & PluginListenerHandle;
 }

@@ -2,27 +2,27 @@
 import PackageDescription
 
 let package = Package(
-    name: "SimpleNativeSocketIo",
+    name: "AndroidForegroundSocketIo",
     platforms: [.iOS(.v14)],
     products: [
         .library(
-            name: "SimpleNativeSocketIo",
-            targets: ["SimpleNativeSocketioPlugin"])
+            name: "AndroidForegroundSocketIo",
+            targets: ["AndroidForegroundSocketPlugin"])
     ],
     dependencies: [
         .package(url: "https://github.com/ionic-team/capacitor-swift-pm.git", from: "7.0.0")
     ],
     targets: [
         .target(
-            name: "SimpleNativeSocketioPlugin",
+            name: "AndroidForegroundSocketPlugin",
             dependencies: [
                 .product(name: "Capacitor", package: "capacitor-swift-pm"),
                 .product(name: "Cordova", package: "capacitor-swift-pm")
             ],
-            path: "ios/Sources/SimpleNativeSocketioPlugin"),
+            path: "ios/Sources/AndroidForegroundSocketPlugin"),
         .testTarget(
-            name: "SimpleNativeSocketioPluginTests",
-            dependencies: ["SimpleNativeSocketioPlugin"],
-            path: "ios/Tests/SimpleNativeSocketioPluginTests")
+            name: "AndroidForegroundSocketPluginTests",
+            dependencies: ["AndroidForegroundSocketPlugin"],
+            path: "ios/Tests/AndroidForegroundSocketPluginTests")
     ]
 )

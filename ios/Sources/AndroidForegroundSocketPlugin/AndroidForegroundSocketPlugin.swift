@@ -5,14 +5,14 @@ import Capacitor
  * Please read the Capacitor iOS Plugin Development Guide
  * here: https://capacitorjs.com/docs/plugins/ios
  */
-@objc(SimpleNativeSocketioPlugin)
-public class SimpleNativeSocketioPlugin: CAPPlugin, CAPBridgedPlugin {
-    public let identifier = "SimpleNativeSocketioPlugin"
-    public let jsName = "SimpleNativeSocketio"
+@objc(AndroidForegroundSocketPlugin)
+public class AndroidForegroundSocketPlugin: CAPPlugin, CAPBridgedPlugin {
+    public let identifier = "AndroidForegroundSocketPlugin"
+    public let jsName = "AndroidForegroundSocket"
     public let pluginMethods: [CAPPluginMethod] = [
         CAPPluginMethod(name: "echo", returnType: CAPPluginReturnPromise)
     ]
-    private let implementation = SimpleNativeSocketio()
+    private let implementation = AndroidForegroundSocket()
 
     @objc func echo(_ call: CAPPluginCall) {
         let value = call.getString("value") ?? ""

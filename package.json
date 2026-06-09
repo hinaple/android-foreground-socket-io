@@ -1,28 +1,25 @@
 {
-  "name": "simple-native-socket-io",
-  "version": "0.0.1",
-  "description": "a simple capacitor plugin to use socketio in native level",
+  "name": "android-foreground-socket-io",
+  "version": "0.1.0",
+  "description": "Android foreground Socket.IO plugin for Capacitor",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
   "unpkg": "dist/plugin.js",
   "files": [
+    "README_ko.md",
     "android/src/main/",
     "android/build.gradle",
-    "dist/",
-    "ios/Sources",
-    "ios/Tests",
-    "Package.swift",
-    "SimpleNativeSocketIo.podspec"
+    "dist/"
   ],
   "author": "fainthit@kakao.com",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fainthit/simple-native-socket-io.git"
+    "url": "git+https://github.com/fainthit/android-foreground-socket-io.git"
   },
   "bugs": {
-    "url": "https://github.com/fainthit/simple-native-socket-io/issues"
+    "url": "https://github.com/fainthit/android-foreground-socket-io/issues"
   },
   "keywords": [
     "capacitor",
@@ -30,16 +27,14 @@
     "native"
   ],
   "scripts": {
-    "verify": "npm run verify:ios && npm run verify:android && npm run verify:web",
-    "verify:ios": "xcodebuild -scheme SimpleNativeSocketIo -destination generic/platform=iOS",
+    "verify": "npm run verify:android && npm run verify:web",
     "verify:android": "cd android && ./gradlew clean build test && cd ..",
     "verify:web": "npm run build",
-    "lint": "npm run eslint && npm run prettier -- --check && npm run swiftlint -- lint",
-    "fmt": "npm run eslint -- --fix && npm run prettier -- --write && npm run swiftlint -- --fix --format",
+    "lint": "npm run eslint && npm run prettier -- --check",
+    "fmt": "npm run eslint -- --fix && npm run prettier -- --write",
     "eslint": "eslint . --ext ts",
     "prettier": "prettier \"**/*.{css,html,ts,js,java}\" --plugin=prettier-plugin-java",
-    "swiftlint": "node-swiftlint",
-    "docgen": "docgen --api SimpleNativeSocketioPlugin --output-readme README.md --output-json dist/docs.json",
+    "docgen": "docgen --api AndroidForegroundSocketPlugin --output-readme README.md --output-json dist/docs.json",
     "build": "npm run clean && npm run docgen && tsc && rollup -c rollup.config.mjs",
     "clean": "rimraf ./dist",
     "watch": "tsc --watch",
@@ -70,9 +65,6 @@
     "extends": "@ionic/eslint-config/recommended"
   },
   "capacitor": {
-    "ios": {
-      "src": "ios"
-    },
     "android": {
       "src": "android"
     }

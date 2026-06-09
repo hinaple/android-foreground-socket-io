@@ -1,12 +1,12 @@
 import XCTest
-@testable import SimpleNativeSocketioPlugin
+@testable import AndroidForegroundSocketPlugin
 
-class SimpleNativeSocketioTests: XCTestCase {
+class AndroidForegroundSocketTests: XCTestCase {
     func testEcho() {
         // This is an example of a functional test case for a plugin.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
 
-        let implementation = SimpleNativeSocketio()
+        let implementation = AndroidForegroundSocket()
         let value = "Hello, World!"
         let result = implementation.echo(value)
 
