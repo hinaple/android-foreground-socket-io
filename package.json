@@ -1,6 +1,6 @@
 {
   "name": "android-foreground-socket-io",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Android foreground Socket.IO plugin for Capacitor",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
@@ -16,10 +16,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/fainthit/android-foreground-socket-io.git"
+    "url": "git+https://github.com/hinaple/android-foreground-socket-io.git"
   },
   "bugs": {
-    "url": "https://github.com/fainthit/android-foreground-socket-io/issues"
+    "url": "https://github.com/hinaple/android-foreground-socket-io/issues"
   },
   "keywords": [
     "capacitor",
